@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeeComponent } from './employee/employee.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
-import { SharedModule } from '../shared/service/shared.module';
 import { EmployeeService } from '../shared/service/employee/employee.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    FormsModule
   ],
   declarations: [
     EmployeeComponent,

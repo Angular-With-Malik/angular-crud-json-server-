@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Employee } from 'src/app/model/employee.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { NgxSpinnerService } from "ngx-spinner";
 
 const headerOption = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -9,28 +10,32 @@ const headerOption = {
 
 @Injectable()
 export class EmployeeService {
-
-  mockUrl: string = 'http://localhost:3000/Employee';
   allEmployee: Employee[];
+  mockUrl: string = 'http://localhost:3000/Employee';
 
   currentEmployee: Employee = {
-    id: null,
     firstName: '',
     lastName: '',
-    code: '',
-    contactNumber: null,
-    address: ''
+    address: '',
+    contact: null,
+    id: null,
+    designation: ''
   }
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private ngxSpinnerService: NgxSpinnerService
   ) { }
 
   getAllEmployee() {
-    return this.http.get(this.mockUrl).subscribe(
+    this.ngxSpinnerService.show();
+    return this.http.get<Employee[]>(this.mockUrl, headerOption).subscribe(
       (data: Employee[]) => {
         this.allEmployee = data;
         console.table(this.allEmployee);
+        setTimeout(() => {
+          this.ngxSpinnerService.hide();
+        }, 500);
       });
   }
 

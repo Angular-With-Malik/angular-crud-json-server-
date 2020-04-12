@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../../shared/service/employee/employee.service';
 import { Employee } from 'src/app/model/employee.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-employee',
@@ -10,36 +11,47 @@ import { Employee } from 'src/app/model/employee.model';
 export class EmployeeComponent implements OnInit {
 
   constructor(
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
   }
 
-  createEmployee(currentEmployee: Employee) {
+  createOrUpdateEmployee(currentEmployee: Employee) {
     if (currentEmployee.id === null) {
-      console.log('Create');
-      this.employeeService.createEmployee(currentEmployee).subscribe(
-        (data) => {
-          this.employeeService.getAllEmployee();
-        });
+      this.createEmployee(currentEmployee);
     } else {
-      console.log('Update');
-      this.employeeService.updateEmployee(currentEmployee).subscribe(
-        (data) => {
-          this.employeeService.getAllEmployee();
-        });
+      this.updateEmployee(currentEmployee);
     }
   }
 
-  clearEmployee(currentEmployee: Employee) {
+  createEmployee(emp: Employee) {
+    this.employeeService.createEmployee(emp).subscribe(
+      (result: Employee) => {
+        this.employeeService.getAllEmployee();
+        this.toastrService.success('Employee created successfully !', 'Employee CRUD');
+        this.clearEmployee();
+      });
+  }
+
+  updateEmployee(emp: Employee) {
+    this.employeeService.updateEmployee(emp).subscribe(
+      (result: Employee) => {
+        this.employeeService.getAllEmployee();
+        this.toastrService.info('Employee updated successfully !', 'Employee CRUD');
+        this.clearEmployee();
+      });
+  }
+
+  clearEmployee() {
     this.employeeService.currentEmployee = {
       id: null,
       firstName: '',
       lastName: '',
-      code: '',
-      contactNumber: null,
+      designation: '',
+      contact: null,
       address: ''
-    }
+    };
   }
 }
