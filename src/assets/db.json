@@ -1,0 +1,30 @@
+{
+  "Employee": [
+    {
+      "id": 1,
+      "firstName": "Raj",
+      "lastName": "Varma",
+      "contactNumber": 9845781256,
+      "code": "emp-001",
+      "address": "Pune",
+      "designation": "Devloper"
+    },
+    {
+      "id": 3,
+      "firstName": "Rohit",
+      "lastName": "Sharma",
+      "contactNumber": 9132451202,
+      "code": "emp-003",
+      "address": "Pune",
+      "designation": "UI Devloper"
+    },
+    {
+      "id": 4,
+      "firstName": "Gopal",
+      "lastName": "Jadhav",
+      "designation": "Devloper",
+      "contact": "7854785478",
+      "address": "Pune"
+    }
+  ]
+}
